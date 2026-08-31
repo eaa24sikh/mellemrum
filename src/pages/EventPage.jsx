@@ -44,7 +44,7 @@ export default function EventPage() {
 
   return (
     <>
-      <main className="event-page">
+      <main className="event-page" data-route-focus tabIndex={-1}>
         <Link className="back-link" to="/">
           ← Alle events
         </Link>

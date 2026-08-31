@@ -5,9 +5,8 @@ export default function RouteFocus() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const mainElement = document.querySelector("main");
-
-    mainElement?.focus();
+    const focusTarget = document.querySelector("[data-route-focus]");
+    focusTarget?.focus();
   }, [pathname]);
 
   return null;

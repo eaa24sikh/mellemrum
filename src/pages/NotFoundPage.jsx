@@ -3,7 +3,7 @@ import { Link } from "react-router";
 export default function NotFoundPage() {
   return (
     <>
-      <header>
+      <header data-route-focus tabIndex={-1}>
         <h1 className="not-found-title">404</h1>
       </header>
       <main className="not-found">
