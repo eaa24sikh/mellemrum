@@ -1,5 +1,13 @@
-import { supabase } from './service/supabaseClient.js'
+import { supabaseConnectionClient } from './supabaseClient.js'
 
-function saveRegistrationToEvent(navn, email, event) {
-    console.log(navn)
+
+
+export async function saveRegistrationToEvent(navnvar, emailvar, eventvar) {
+     
+    console.log(navnvar)
+    console.log(eventvar)
+
+    const resultData = await supabaseConnectionClient.from('registrations').insert({ name: navnvar, email: emailvar, eventTitle: eventvar.title, eventDate: eventvar.date, eventLocation: eventvar.venueName })
+    console.log(resultData)
+    
 }

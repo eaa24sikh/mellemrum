@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
-import {} from "../service/service.js"
+import {saveRegistrationToEvent} from "../service/service.js"
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const headers = {
@@ -28,7 +28,7 @@ export default function EventPage() {
     eventSubmit.preventDefault();
     //console.log({ name, email, event: event.title });
 
-    const result = saveRegistrationToEvent(name, email, event)
+    const result = await saveRegistrationToEvent(name, email, event)
 
   }
 
