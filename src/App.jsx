@@ -5,11 +5,14 @@ import AboutPage from "./pages/AboutPage";
 import EventPage from "./pages/EventPage";
 import RegistrationsPage from "./pages/RegistrationsPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import RouteFocus from "./components/RouteFocus";
 
 export default function App() {
   return (
     <>
       <Navbar />
+      <RouteFocus />
+      
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/events/:eventId" element={<EventPage />} />
