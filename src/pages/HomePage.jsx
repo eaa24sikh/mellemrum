@@ -45,7 +45,7 @@ export default function HomePage() {
 
   return (
     <>
-      <header className="hero">
+      <header className="hero" data-route-focus tabIndex={-1}>
         <p className="eyebrow">Kultur i Aarhus</p>
         <h1>Find plads til noget nyt.</h1>
         <p className="hero-copy">

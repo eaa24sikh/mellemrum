@@ -3,7 +3,7 @@ import { Link } from "react-router";
 export default function AboutPage() {
   return (
     <>
-      <header className="page-header about-header">
+      <header className="page-header about-header" data-route-focus tabIndex={-1}>
         <div className="about-header-content">
           <p className="eyebrow">Om Mellemrum</p>
           <h1>Vi skaber mellemrum i kalenderen.</h1>

@@ -23,7 +23,7 @@ export default function RegistrationsPage() {
 
   return (
     <>
-      <header className="admin-header">
+      <header className="admin-header" data-route-focus tabIndex={-1}>
         <p className="eyebrow">Internt overblik</p>
         <h1>Tilmeldinger</h1>
         <p>{registrationCount} tilmeldinger i alt</p>
