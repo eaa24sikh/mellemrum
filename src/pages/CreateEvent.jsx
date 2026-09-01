@@ -1,4 +1,4 @@
-
+import {saveEvent} from "../service/CreateEvent.js"
 
 export default function CreateEvent() {
     return (
