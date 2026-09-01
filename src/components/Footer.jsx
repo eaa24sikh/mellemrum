@@ -21,6 +21,7 @@ export default function () {
               <p className="footer-heading">For arrangører</p>
               <Link to="/tilmeldinger">Se tilmeldinger</Link>
               <a href="mailto:hej@mellemrum.dk">Kontakt os</a>
+              <Link to="/createEvent">Opret event</Link>
             </div>
           </nav>
         </div>
