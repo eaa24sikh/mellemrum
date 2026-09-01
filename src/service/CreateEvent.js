@@ -1,12 +1,29 @@
-import { supabaseConnectionClient } from './supabaseClient.js'
+import { supabaseConnectionClient } from "./supabaseClient.js";
 
+export async function saveEvent(
+  titlevar,
+  summaryvar,
+  descriptionvar,
+  datevar,
+  venueNamevar,
+  categoryvar,
+  imagevar,
+  pricevar
+) {
+  const resultData = await supabaseConnectionClient
+    .from("events")
+    .insert({
+      title: titlevar,
+      summary: summaryvar,
+      description: descriptionvar,
+      date: datevar,
+      venueName: venueNamevar,
+      category: categoryvar,
+      image: imagevar,
+      price: pricevar
+    });
 
+  console.log(resultData);
 
-export async function saveEvent(titlevar, summaryvar, descriptionvar, datevar, venueNamevar, categoryvar, imagevar, pricevar) {
-     
-   
-
-    const resultData = await supabaseConnectionClient.from('events').insert({ title: titlevar, description: descriptionvar, date: datevar,  venueName: venueNamevar, category: categoryvar, image: imagevar, price: pricevar})
-    console.log(resultData)
-    
+  return resultData;
 }
