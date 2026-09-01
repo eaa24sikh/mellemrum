@@ -4,16 +4,42 @@
 
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
+
   gap: clamp(3rem, 6vw, 6rem);
 
   margin-top: 2rem;
+  margin-bottom: 2rem;
+
   padding: clamp(2rem, 5vw, 5rem);
 }
 
-/* Overskriften i venstre side */
+
+
+
+.create_event_intro {
+  align-self: start;
+}
+
+
+.create_event_eyebrow {
+  color: var(--green);
+
+  font-size: 0.78rem;
+  font-weight: 800;
+
+  letter-spacing: 0.16em;
+
+  margin: 0 0 1rem;
+
+  text-transform: uppercase;
+}
+
+
 .create_event h1 {
   font-size: clamp(2.8rem, 5vw, 5rem);
+
   letter-spacing: -0.055em;
+
   line-height: 0.95;
 
   margin: 0;
@@ -21,106 +47,221 @@
   max-width: 8ch;
 }
 
-/* Formularen i højre side */
-.create_event form {
+
+.create_event_text {
+  font-size: 1.1rem;
+
+  line-height: 1.5;
+
+  margin: 1.5rem 0 0;
+
+  max-width: 30rem;
+}
+
+
+
+
+
+.create_event_form {
   display: grid;
+
   gap: 0.65rem;
 }
 
-/* Labels */
-.create_event label {
-  display: grid;
 
+
+
+.create_event_form label {
   font-size: 0.78rem;
+
   font-weight: 800;
 
   letter-spacing: 0.08em;
-  text-transform: uppercase;
 
-  margin-top: 0.4rem;
+  margin-top: 0.5rem;
+
+  text-transform: uppercase;
 }
 
-/* Alle inputfelter */
-.create_event input {
+
+
+
+
+.create_event_form input,
+.create_event_form select,
+.create_event_form textarea {
   background: white;
 
   border: 1px solid var(--line);
+
   border-radius: 8px;
 
   color: var(--ink);
 
-  min-height: 48px;
+  font: inherit;
 
   padding: 0.75rem 0.9rem;
 
   width: 100%;
+
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
 }
 
-/* Fokus – vigtigt for accessibility */
-.create_event input:focus {
+
+.create_event_form input,
+.create_event_form select {
+  min-height: 48px;
+}
+
+
+.create_event_form textarea {
+  min-height: 100px;
+
+  resize: vertical;
+}
+
+
+
+
+
+.create_event_form input:focus,
+.create_event_form select:focus,
+.create_event_form textarea:focus {
   border-color: var(--green);
 
-  box-shadow: 0 0 0 3px rgba(23, 63, 53, 0.12);
+  box-shadow:
+    0 0 0 3px rgba(23, 63, 53, 0.12);
 
   outline: none;
 }
 
-/* Større tekstfelter */
-.create_event .event_inputB {
-  min-height: 100px;
-}
 
-/* Submit-knap */
-.create_event .event_submit {
+
+
+
+.create_event_submit {
   background: var(--green);
 
   border: 0;
-  border-radius: 0;
 
   color: white;
+
   cursor: pointer;
+
+  font: inherit;
 
   font-weight: 800;
 
-  margin-top: 0.7rem;
+  margin-top: 1rem;
 
   min-height: 50px;
 
   padding: 0.8rem 1.1rem;
+
+  width: 100%;
+
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
 }
 
-/* Hover */
-.create_event .event_submit:hover {
+
+.create_event_submit:hover {
   opacity: 0.92;
 }
 
-/* Keyboard focus på knappen */
-.create_event .event_submit:focus-visible {
-  outline: 3px solid white;
-  outline-offset: 3px;
+
+.create_event_submit:active {
+  transform: translateY(1px);
 }
 
 
-/* Tablet */
+.create_event_submit:focus-visible {
+  outline: 3px solid white;
+
+  outline-offset: 3px;
+}
+.create_event_form select {
+  appearance: none;
+  -webkit-appearance: none;
+
+  background-color: white;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+
+  color: var(--ink);
+  cursor: pointer;
+
+  font: inherit;
+
+  min-height: 48px;
+  width: 100%;
+
+  padding: 0.75rem 3rem 0.75rem 0.9rem;
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--green) 50%),
+    linear-gradient(135deg, var(--green) 50%, transparent 50%);
+
+  background-position:
+    calc(100% - 20px) 50%,
+    calc(100% - 15px) 50%;
+
+  background-size:
+    5px 5px,
+    5px 5px;
+
+  background-repeat: no-repeat;
+}
+
+
+
+
+/* -------------------------
+   TABLET
+------------------------- */
+
 @media (max-width: 900px) {
+
   .create_event {
     grid-template-columns: 1fr;
+
+    gap: 3rem;
   }
+
 
   .create_event h1 {
     max-width: none;
   }
+
 }
 
 
-/* Mobil */
+
+/* -------------------------
+   MOBIL
+------------------------- */
+
 @media (max-width: 620px) {
+
   .create_event {
     border-radius: 14px;
+
     gap: 2rem;
+
+    padding: 2rem 1.25rem;
   }
+
 
   .create_event h1 {
     font-size: clamp(2.5rem, 12vw, 4rem);
   }
+
+
+  .create_event_text {
+    font-size: 1rem;
+  }
+
 }

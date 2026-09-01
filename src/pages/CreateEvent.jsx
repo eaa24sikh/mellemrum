@@ -12,63 +12,134 @@ export default function CreateEvent() {
         
             </header> 
             
-           <main className="create_event">
+          <main className="create_event">
+
       <div className="create_event_intro">
-        <p className="eyebrow dark">Opret event</p>
+        <p className="create_event_eyebrow">Opret event</p>
+
         <h1>Opret nyt event</h1>
 
-        <p>
+        <p className="create_event_text">
           Udfyld formularen med informationerne om dit arrangement.
         </p>
       </div>
 
-      <form>
-        <label htmlFor="title">Titel</label>
+      <form className="create_event_form">
+
+        <label htmlFor="title">
+          Titel
+        </label>
         <input
-          className="event_inputS"
           type="text"
           id="title"
           name="title"
+          required
         />
 
-        <label htmlFor="summary">Opsummering</label>
-        <input
-          className="event_inputB"
-          type="text"
+
+        <label htmlFor="summary">
+          Opsummering
+        </label>
+        <textarea
           id="summary"
           name="summary"
+          rows="3"
+          required
         />
 
-        <label htmlFor="description">Beskrivelse</label>
-        <input
-          className="event_inputB"
-          type="text"
+
+        <label htmlFor="description">
+          Beskrivelse
+        </label>
+        <textarea
           id="description"
           name="description"
+          rows="6"
+          required
         />
 
-        <label htmlFor="vname">Venue navn</label>
+
+        <label htmlFor="category">
+          Kategori
+        </label>
+        <select
+          id="category"
+          name="category"
+          defaultValue=""
+          required
+        >
+          <option value="" disabled>
+            Vælg kategori
+          </option>
+
+          <option value="Musik">Musik</option>
+          <option value="Kunst">Kunst</option>
+          <option value="Teater">Teater</option>
+          <option value="Foredrag">Foredrag</option>
+          <option value="Workshop">Workshop</option>
+          <option value="Sport">Sport</option>
+          <option value="Mad">Mad</option>
+          <option value="Kultur">Kultur</option>
+          <option value="Andet">Andet</option>
+        </select>
+
+
+        <label htmlFor="vname">
+          Venue navn
+        </label>
         <input
-          className="event_inputS"
           type="text"
           id="vname"
           name="vname"
+          required
         />
 
-        <label htmlFor="vdate">Dato</label>
+
+        <label htmlFor="vdate">
+          Dato
+        </label>
         <input
-          className="event_input"
           type="date"
           id="vdate"
           name="vdate"
+          required
         />
 
+
+        <label htmlFor="price">
+          Pris
+        </label>
         <input
-          className="event_submit"
-          type="submit"
-          value="Opret event"
+          type="number"
+          id="price"
+          name="price"
+          min="0"
+          placeholder="0"
+          required
         />
+
+
+        <label htmlFor="image">
+          Billede
+        </label>
+        <input
+          type="url"
+          id="image"
+          name="image"
+          placeholder="https://..."
+          required
+        />
+
+
+        <button
+          className="create_event_submit"
+          type="submit"
+        >
+          Opret event
+        </button>
+
       </form>
+
     </main>
         </>
     )
