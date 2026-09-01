@@ -1,0 +1,126 @@
+.create_event {
+  background: var(--lime);
+  border-radius: 18px;
+
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+
+  margin-top: 2rem;
+  padding: clamp(2rem, 5vw, 5rem);
+}
+
+/* Overskriften i venstre side */
+.create_event h1 {
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  letter-spacing: -0.055em;
+  line-height: 0.95;
+
+  margin: 0;
+
+  max-width: 8ch;
+}
+
+/* Formularen i højre side */
+.create_event form {
+  display: grid;
+  gap: 0.65rem;
+}
+
+/* Labels */
+.create_event label {
+  display: grid;
+
+  font-size: 0.78rem;
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  margin-top: 0.4rem;
+}
+
+/* Alle inputfelter */
+.create_event input {
+  background: white;
+
+  border: 1px solid var(--line);
+  border-radius: 8px;
+
+  color: var(--ink);
+
+  min-height: 48px;
+
+  padding: 0.75rem 0.9rem;
+
+  width: 100%;
+}
+
+/* Fokus – vigtigt for accessibility */
+.create_event input:focus {
+  border-color: var(--green);
+
+  box-shadow: 0 0 0 3px rgba(23, 63, 53, 0.12);
+
+  outline: none;
+}
+
+/* Større tekstfelter */
+.create_event .event_inputB {
+  min-height: 100px;
+}
+
+/* Submit-knap */
+.create_event .event_submit {
+  background: var(--green);
+
+  border: 0;
+  border-radius: 0;
+
+  color: white;
+  cursor: pointer;
+
+  font-weight: 800;
+
+  margin-top: 0.7rem;
+
+  min-height: 50px;
+
+  padding: 0.8rem 1.1rem;
+}
+
+/* Hover */
+.create_event .event_submit:hover {
+  opacity: 0.92;
+}
+
+/* Keyboard focus på knappen */
+.create_event .event_submit:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 3px;
+}
+
+
+/* Tablet */
+@media (max-width: 900px) {
+  .create_event {
+    grid-template-columns: 1fr;
+  }
+
+  .create_event h1 {
+    max-width: none;
+  }
+}
+
+
+/* Mobil */
+@media (max-width: 620px) {
+  .create_event {
+    border-radius: 14px;
+    gap: 2rem;
+  }
+
+  .create_event h1 {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+}
