@@ -1,5 +1,6 @@
 import { supabaseConnectionClient } from "./supabaseClient.js";
 
+
 export async function saveEvent(
   titlevar,
   summaryvar,
@@ -8,7 +9,8 @@ export async function saveEvent(
   venueNamevar,
   categoryvar,
   imagevar,
-  pricevar
+  pricevar,
+  venueAddressvar
 ) {
   const resultData = await supabaseConnectionClient
     .from("events")
@@ -20,10 +22,11 @@ export async function saveEvent(
       venueName: venueNamevar,
       category: categoryvar,
       image: imagevar,
-      price: pricevar
-    });
+      price: pricevar,
+      venueAddress: venueAddressvar
+   })
+  .select("id");
+  //console.log(resultData.data[0].id);
 
-  console.log(resultData);
-
-  return resultData;
+    return resultData;
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { saveEvent } from "../service/CreateEvent.js"
+import { useNavigate } from "react-router";
 
 export default function CreateEvent() {
   const [title, setTitle] = useState("");
@@ -10,6 +11,8 @@ export default function CreateEvent() {
   const [date, setDate] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
+  const [venueAddress, setVenueAddress] = useState("");
+  const navigate = useNavigate();
 
   async function handleSubmit(eventSubmit) {
     eventSubmit.preventDefault();
@@ -22,9 +25,18 @@ export default function CreateEvent() {
       venueName,
       category,
       image,
-      price
+      price,
+      venueAddress
     );
+      
+    const newEventId = result.data[0].id;
 
+    navigate(`/events/${newEventId}`);
+      
+      
+    
+      
+      
     console.log(result);
   }
 
@@ -195,6 +207,22 @@ export default function CreateEvent() {
             value={image}
             onChange={(inputEvent) =>
               setImage(inputEvent.target.value)
+            }
+            required
+            />
+
+
+            <label htmlFor="venueAddress">
+            Addresse
+          </label>
+
+          <input
+            type="text"
+            id="venueAddress"
+            name="venueAddress"
+            value={venueAddress}
+            onChange={(inputEvent) =>
+              setVenueAddress(inputEvent.target.value)
             }
             required
           />
