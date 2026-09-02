@@ -14,24 +14,29 @@ export default function RegistrationsPage() {
     async function getRegistrations() {
       const response = await fetch(`${SUPABASE_URL}/registrations?order=createdAt.desc`, { headers });
       const data = await response.json();
-      const eventId = data[0]['eventId'];
-      
-      const eventResponse = await fetch(`${SUPABASE_URL}/events?id=eq.${eventId}`, { headers });
-      const eventData = await eventResponse.json();
-      console.log("data")
-      console.log(eventData)
-      console.log(eventData[0])
-      console.log(eventData[0]["title"])
 
-      let eventInfo = { title: eventData[0]["title"], date: eventData[0]["date"] }
-      
-      data[0]["eventTitle"] = eventInfo["title"]
 
-      console.log(data)
+      const allData = await Promise.all(
+      data.map(async (registrationItem) => {
+        const eventId = registrationItem["eventId"];
+
+        const eventResponse = await fetch(
+          `${SUPABASE_URL}/events?id=eq.${eventId}`,
+          { headers }
+        );
+
+        const eventData = await eventResponse.json();
+
+        registrationItem["eventTitle"] = eventData[0]["title"];
+        registrationItem["eventDate"] = eventData[0]["date"];
+
+        return registrationItem;
+      })
+    );
       
 
-      setRegistrations(data);
-      setRegistrationCount(data.length);
+      setRegistrations(allData);
+      setRegistrationCount(allData.length);
     }
 
     getRegistrations();
