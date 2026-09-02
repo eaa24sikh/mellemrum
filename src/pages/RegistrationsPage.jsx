@@ -14,6 +14,16 @@ export default function RegistrationsPage() {
     async function getRegistrations() {
       const response = await fetch(`${SUPABASE_URL}/registrations?order=createdAt.desc`, { headers });
       const data = await response.json();
+      const eventId = data[0]['eventId'];
+  
+      const eventResponse = await fetch(`${SUPABASE_URL}/events?id=eq.${eventId}`, { headers });
+      const eventData = await eventResponse.json();
+
+      //let eventInfo = {title, date}
+
+      console.log(eventData)
+      console.log(data)
+
       setRegistrations(data);
       setRegistrationCount(data.length);
     }
