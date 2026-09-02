@@ -15,14 +15,20 @@ export default function RegistrationsPage() {
       const response = await fetch(`${SUPABASE_URL}/registrations?order=createdAt.desc`, { headers });
       const data = await response.json();
       const eventId = data[0]['eventId'];
-  
+      
       const eventResponse = await fetch(`${SUPABASE_URL}/events?id=eq.${eventId}`, { headers });
       const eventData = await eventResponse.json();
-
-      //let eventInfo = {title, date}
-
+      console.log("data")
       console.log(eventData)
+      console.log(eventData[0])
+      console.log(eventData[0]["title"])
+
+      let eventInfo = { title: eventData[0]["title"], date: eventData[0]["date"] }
+      
+      data[0]["eventTitle"] = eventInfo["title"]
+
       console.log(data)
+      
 
       setRegistrations(data);
       setRegistrationCount(data.length);
