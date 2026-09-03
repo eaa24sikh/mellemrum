@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
-import {saveRegistrationToEvent} from "../service/service.js"
+import { saveRegistrationToEvent } from "../service/service.js"
+import { useNavigate } from "react-router";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const headers = {
@@ -13,6 +14,7 @@ export default function EventPage() {
   const [event, setEvent] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+   const navigate = useNavigate();
 
   useEffect(() => {
     async function getEvent() {
@@ -26,9 +28,13 @@ export default function EventPage() {
 
   async function handleSubmit(eventSubmit) {
     eventSubmit.preventDefault();
-    //console.log({ name, email, event: event.title });
+   
 
-    const result = await saveRegistrationToEvent(name, email, event)
+
+
+    const result = await saveRegistrationToEvent(name, email, event["id"])
+    
+    navigate("/tilmeldinger");
 
   }
 
@@ -50,7 +56,7 @@ export default function EventPage() {
         </Link>
 
         <section className="event-detail">
-          <img src={event.image} alt="" />
+          <img src={event.image} alt="" loading="lazy"/>
           <div className="event-detail-content">
             <p className="event-category">{event.category}</p>
             <h1>{event.title}</h1>
@@ -94,14 +100,11 @@ export default function EventPage() {
           <form onSubmit={handleSubmit}>
             <label>
               Navn
-              <input value={name} onChange={(inputEvent) => setName(inputEvent.target.value)} />
+              <input id="name" value={name} type="text" onChange={(inputEvent) => setName(inputEvent.target.value)} required/>
             </label>
-            <span>E-mail</span>
-            <input
-              value={email}
-              onChange={(inputEvent) => setEmail(inputEvent.target.value)}
-              placeholder="dig@example.com"
-            />
+           <label htmlFor="email">E-mail</label>
+          <input id="email" name="email" type="email" required value={email} onChange={(inputEvent) => setEmail(inputEvent.target.value)}
+          />
             <button type="submit">Tilmeld mig</button>
           </form>
         </section>
