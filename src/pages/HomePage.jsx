@@ -97,7 +97,7 @@ export default function HomePage() {
                   <span>{formatEventDate(event.date)}</span>
                   <span>{event.venueName}</span>
                 </div>
-                <Link className="card-link" to={`/events/${event.id}`}>
+                <Link className="card-link" to={`/events/${event.id}`} aria-label={`Læs mere om ${event.title}`}>
                   Læs mere
                 </Link>
               </div>
