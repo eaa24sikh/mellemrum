@@ -1,11 +1,25 @@
 import { supabaseConnectionClient } from "../supabaseClient.js";
 
-export default async function getEventInfo(eventId) {
+export async function getEvents() {
+  const { data, error } = await supabaseConnectionClient
+    .from("events")
+    .select("*")
+    .order("date", { ascending: true });
+
+  if (error) {
+    console.error("Kunne ikke hente events:", error);
+    return [];
+  }
+
+  return data;
+}
+
+export async function getEventInfo(eventId) {
   const { data, error } = await supabaseConnectionClient
     .from("events")
     .select("*")
     .eq("id", eventId)
-    .single();
+    .maybeSingle();
 
   if (error) {
     console.error("Kunne ikke hente event:", error);

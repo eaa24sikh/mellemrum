@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { saveRegistrationToEvent } from "../service/service.js"
-import getEventInfo from "../service/API/events.js";
+import { getEventInfo } from "../service/API/events.js";
 
 
 export default function EventPage() {
