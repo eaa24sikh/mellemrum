@@ -1,14 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { saveRegistrationToEvent } from "../service/service.js"
+import getEventInfo from "../service/API/events.js";
 
-
-
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const headers = {
-  apikey: import.meta.env.VITE_SUPABASE_APIKEY,
-  "Content-Type": "application/json"
-};
 
 export default function EventPage() {
   const { eventId } = useParams();
@@ -16,14 +10,14 @@ export default function EventPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  
    
 
   useEffect(() => {
-    async function getEvent() {
-      const response = await fetch(`${SUPABASE_URL}/events?id=eq.${eventId}`, { headers });
-      const data = await response.json();
-      setEvent(data[0]);
-    }
+  async function getEvent() {
+    const eventData = await getEventInfo(eventId);
+    setEvent(eventData);
+  }
 
     getEvent();
   }, [eventId]);
