@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { saveRegistrationToEvent } from "../service/service.js"
-import { useNavigate } from "react-router";
+
+
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const headers = {
@@ -14,7 +15,8 @@ export default function EventPage() {
   const [event, setEvent] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
+   
 
   useEffect(() => {
     async function getEvent() {
@@ -34,7 +36,10 @@ export default function EventPage() {
 
     const result = await saveRegistrationToEvent(name, email, event["id"])
     
-    navigate("/tilmeldinger");
+    setName("");
+    setEmail("");
+
+    setMessage("Du er nu tilmeldt eventet!");
 
   }
 
@@ -106,6 +111,13 @@ export default function EventPage() {
           <input id="email" name="email" type="email" required value={email} onChange={(inputEvent) => setEmail(inputEvent.target.value)}
           />
             <button type="submit">Tilmeld mig</button>
+
+            {message && (
+              <p className="signup-message">
+                {message}
+              </p>
+            )}
+
           </form>
         </section>
       </main>
