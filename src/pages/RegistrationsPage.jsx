@@ -1,54 +1,33 @@
 import { useEffect, useState } from "react";
-
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const headers = {
-  apikey: import.meta.env.VITE_SUPABASE_APIKEY,
-  "Content-Type": "application/json"
-};
+import { getRegistrations } from "../service/API/registrations.js";
 
 export default function RegistrationsPage() {
   const [registrations, setRegistrations] = useState([]);
   const [registrationCount, setRegistrationCount] = useState(0);
 
   useEffect(() => {
-    async function getRegistrations() {
-      const response = await fetch(`${SUPABASE_URL}/registrations?order=createdAt.desc`, { headers });
-      const data = await response.json();
+    async function loadRegistrations() {
+      const registrationData = await getRegistrations();
 
-
-      const allData = await Promise.all(
-      data.map(async (registrationItem) => {
-        const eventId = registrationItem["eventId"];
-
-        const eventResponse = await fetch(
-          `${SUPABASE_URL}/events?id=eq.${eventId}`,
-          { headers }
-        );
-
-        const eventData = await eventResponse.json();
-
-        registrationItem["eventTitle"] = eventData[0]["title"];
-        registrationItem["eventDate"] = eventData[0]["date"];
-
-        return registrationItem;
-      })
-    );
-      
-
-      setRegistrations(allData);
-      setRegistrationCount(allData.length);
+      setRegistrations(registrationData);
+      setRegistrationCount(registrationData.length);
     }
 
-    getRegistrations();
+    loadRegistrations();
   }, []);
 
   return (
     <>
-      <header className="admin-header" data-route-focus tabIndex={-1}>
+      <header
+        className="admin-header"
+        data-route-focus
+        tabIndex={-1}
+      >
         <p className="eyebrow">Internt overblik</p>
         <h1>Tilmeldinger</h1>
         <p>{registrationCount} tilmeldinger i alt</p>
       </header>
+
       <main>
         <div className="registration-list">
           <div className="registration-row registration-labels">
@@ -57,20 +36,36 @@ export default function RegistrationsPage() {
             <span>Dato</span>
             <span>Status</span>
           </div>
+
           {registrations.map((registration) => (
-            <div className="registration-row" key={registration.id}>
+            <div
+              className="registration-row"
+              key={registration.id}
+            >
               <div>
                 <strong>{registration.name}</strong>
                 <small>{registration.email}</small>
               </div>
-              <span>{registration.eventTitle}</span>
-              <span>{new Date(registration.eventDate).toLocaleDateString("da-DK")}</span>
-              <span className="status">{registration.status}</span>
+
+              <span>
+                {registration.event?.title ?? "Event mangler"}
+              </span>
+
+              <span>
+                {registration.event?.date
+                  ? new Date(
+                      registration.event.date
+                    ).toLocaleDateString("da-DK")
+                  : "Dato mangler"}
+              </span>
+
+              <span className="status">
+                {registration.status}
+              </span>
             </div>
           ))}
         </div>
       </main>
-      
     </>
   );
 }
