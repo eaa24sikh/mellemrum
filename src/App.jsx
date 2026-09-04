@@ -6,6 +6,7 @@ import EventPage from "./pages/EventPage";
 import RegistrationsPage from "./pages/RegistrationsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import RouteFocus from "./components/RouteFocus";
+import CreateEvent from "./pages/CreateEvent";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/om" element={<AboutPage />} />
         <Route path="/tilmeldinger" element={<RegistrationsPage />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/createEvent" element={<CreateEvent/>} />
       </Routes>
     </>
   );

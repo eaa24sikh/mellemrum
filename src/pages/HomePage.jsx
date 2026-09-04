@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { getEvents } from "../service/API/events.js";
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const headers = {
-  apikey: import.meta.env.VITE_SUPABASE_APIKEY,
-  "Content-Type": "application/json"
-};
+
 
 export default function HomePage() {
   const [events, setEvents] = useState([]);
@@ -13,14 +10,13 @@ export default function HomePage() {
   const [category, setCategory] = useState("Alle");
 
   useEffect(() => {
-    async function getEvents() {
-      const response = await fetch(`${SUPABASE_URL}/events?order=date.asc`, { headers });
-      const data = await response.json();
-      setEvents(data);
-    }
+  async function loadEvents() {
+    const eventData = await getEvents();
+    setEvents(eventData);
+  }
 
-    getEvents();
-  }, []);
+  loadEvents();
+}, []);
 
   const categories = ["Alle", ...new Set(events.map((event) => event.category))];
 
@@ -88,7 +84,7 @@ export default function HomePage() {
         <section className="event-grid">
           {filteredEvents.map((event) => (
             <article className="event-card" key={event.id}>
-              <img src={event.image} alt="" />
+              <img src={event.image} alt="" loading="lazy"/>
               <div className="event-card-content">
                 <p className="event-category">{event.category}</p>
                 <h3>{event.title}</h3>
@@ -97,7 +93,7 @@ export default function HomePage() {
                   <span>{formatEventDate(event.date)}</span>
                   <span>{event.venueName}</span>
                 </div>
-                <Link className="card-link" to={`/events/${event.id}`}>
+                <Link className="card-link" to={`/events/${event.id}`} aria-label={`Læs mere om ${event.title}`}>
                   Læs mere
                 </Link>
               </div>

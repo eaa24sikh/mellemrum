@@ -1,34 +1,39 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
-import {saveRegistrationToEvent} from "../service/service.js"
+import { saveRegistrationToEvent } from "../service/API/registrations.js"
+import { getEventInfo } from "../service/API/events.js";
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const headers = {
-  apikey: import.meta.env.VITE_SUPABASE_APIKEY,
-  "Content-Type": "application/json"
-};
 
 export default function EventPage() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  
+   
 
   useEffect(() => {
-    async function getEvent() {
-      const response = await fetch(`${SUPABASE_URL}/events?id=eq.${eventId}`, { headers });
-      const data = await response.json();
-      setEvent(data[0]);
-    }
+  async function getEvent() {
+    const eventData = await getEventInfo(eventId);
+    setEvent(eventData);
+  }
 
     getEvent();
   }, [eventId]);
 
   async function handleSubmit(eventSubmit) {
     eventSubmit.preventDefault();
-    //console.log({ name, email, event: event.title });
+   
 
-    const result = await saveRegistrationToEvent(name, email, event)
+
+
+    const result = await saveRegistrationToEvent(name, email, event["id"])
+    
+    setName("");
+    setEmail("");
+
+    setMessage("Du er nu tilmeldt eventet!");
 
   }
 
@@ -50,7 +55,7 @@ export default function EventPage() {
         </Link>
 
         <section className="event-detail">
-          <img src={event.image} alt="" />
+          <img src={event.image} alt="" loading="lazy"/>
           <div className="event-detail-content">
             <p className="event-category">{event.category}</p>
             <h1>{event.title}</h1>
@@ -94,15 +99,19 @@ export default function EventPage() {
           <form onSubmit={handleSubmit}>
             <label>
               Navn
-              <input value={name} onChange={(inputEvent) => setName(inputEvent.target.value)} />
+              <input id="name" value={name} type="text" onChange={(inputEvent) => setName(inputEvent.target.value)} required/>
             </label>
-            <span>E-mail</span>
-            <input
-              value={email}
-              onChange={(inputEvent) => setEmail(inputEvent.target.value)}
-              placeholder="dig@example.com"
-            />
+           <label htmlFor="email">E-mail</label>
+          <input id="email" name="email" type="email" required value={email} onChange={(inputEvent) => setEmail(inputEvent.target.value)}
+          />
             <button type="submit">Tilmeld mig</button>
+
+            {message && (
+              <p className="signup-message">
+                {message}
+              </p>
+            )}
+
           </form>
         </section>
       </main>
